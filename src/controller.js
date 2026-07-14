@@ -15,11 +15,18 @@ function addProject() {
   const projectName = prompt("New Project Name");
   const project = new Project(projectName)
   projects.push(project);
-  updateDisplay
+  updateDisplay();
 }
 
 // function addTodo() {
 //   const todoName
 // }
 
-window.addProject = addProject
+export function deleteProject(project){
+    const projectIndex = projects.indexOf(project);
+    
+    if (projectIndex !== -1) {
+      projects.splice(projectIndex, 1);
+      updateDisplay();
+    }
+}

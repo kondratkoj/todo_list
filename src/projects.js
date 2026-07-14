@@ -36,7 +36,7 @@ export class Todo {
   }
 }
 
-const defaultProject = new Project("default");
+const defaultProject = new Project("Default");
 projects.push(defaultProject);
 
 window.Project = Project;

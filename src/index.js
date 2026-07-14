@@ -2,6 +2,7 @@ import "./styles/reset.css";
 import "./styles/global.css";
 import { makeElement } from "./domHelper.js";
 import { setupController } from "./controller.js";
+import { initDisplay, updateDisplay } from "./display.js";
 
 const body = document.querySelector("body");
 
@@ -17,4 +18,6 @@ body.append(header, main, footer);
 header.append(newPrjct, newTodo);
 main.append(navBar);
 
+initDisplay();
 setupController();
+updateDisplay();
