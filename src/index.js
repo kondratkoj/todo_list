@@ -1,7 +1,7 @@
 import "./styles/reset.css";
 import "./styles/global.css";
 import { makeElement } from "./domHelper.js";
-import "./controller.js"
+import { setupController } from "./controller.js";
 
 const body = document.querySelector("body");
 
@@ -16,3 +16,5 @@ const newTodo = makeElement("button","newTodo button","New To-Do");
 body.append(header, main, footer);
 header.append(newPrjct, newTodo);
 main.append(navBar);
+
+setupController();

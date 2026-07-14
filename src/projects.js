@@ -1,6 +1,8 @@
 import { makeElement } from "./domHelper.js";
 import "./styles/projects.css"
 
+export const projects = [];
+
 export class Project {
   constructor(name) {
     this.name = name;
@@ -34,5 +36,9 @@ export class Todo {
   }
 }
 
+const defaultProject = new Project("default");
+projects.push(defaultProject);
+
 window.Project = Project;
 window.Todo = Todo;
+window.projects = projects;
