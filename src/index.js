@@ -1,6 +1,7 @@
 import "./styles/reset.css";
 import "./styles/global.css";
 import { makeElement } from "./domHelper.js";
+import "./controller.js"
 
 const body = document.querySelector("body");
 
