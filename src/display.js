@@ -1,4 +1,3 @@
-import { deleteProject } from "./controller.js";
 import { makeElement } from "./domHelper.js";
 import { projects, Project, Todo } from "./projects.js";
 
@@ -18,7 +17,7 @@ export function initDisplay() {
   // main.append(todoList);
 }
 
-export function updateDisplay() {
+export function updateDisplay(onDelete) {
   projectList.replaceChildren();
 
   for (let project of projects) {
@@ -27,9 +26,9 @@ export function updateDisplay() {
     const deleteBtn = makeElement("button", "deleteBtn button", "X")
 
     deleteBtn.addEventListener("click", () => {
-      deleteProject(project);
+      onDelete(project);
     })
-    
+
     li.append(text, deleteBtn);
     projectList.append(li);
   }

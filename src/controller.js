@@ -7,7 +7,8 @@ import { updateDisplay } from "./display.js";
 export function setupController () {
   const newProject = document.querySelector(".newPrjct");
   const newTodo = document.querySelector(".newTodo");
-  newProject.addEventListener("click", addProject)
+  newProject.addEventListener("click", addProject);
+  updateDisplay(deleteProject);
   // newTodo.addEventListener("click", )
 }
 
@@ -15,7 +16,7 @@ function addProject() {
   const projectName = prompt("New Project Name");
   const project = new Project(projectName)
   projects.push(project);
-  updateDisplay();
+  updateDisplay(deleteProject);
 }
 
 // function addTodo() {
@@ -27,6 +28,6 @@ export function deleteProject(project){
     
     if (projectIndex !== -1) {
       projects.splice(projectIndex, 1);
-      updateDisplay();
+      updateDisplay(deleteProject);
     }
 }
