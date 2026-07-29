@@ -2,7 +2,7 @@
   --color-bg: #f4f5f7;
   --color-surface: #f9f9f9;
   --color-primary: #135518;
-  --color-head-foot: #c6964d;
+  --color-head-foot: #1b896a;
   --color-border: #c9ced6;
   --color-text: #222;
 }
@@ -38,6 +38,10 @@ body {
   padding: 1.5rem;
   background-color: #e6e9ee;
   border-right: 1px solid #c9ced6;
+}
+
+.todoList {
+  padding: 1.5rem;
 }
 
 .footer {

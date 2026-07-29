@@ -5,13 +5,14 @@ export const projects = [];
 
 export class Project {
   constructor(name) {
+    this.id = crypto.randomUUID();
     this.name = name;
-    this.todo = [];
+    this.todos = [];
   }
 
   addTodo(name, dueDate, priority) {
     const task = new Todo(name, dueDate, priority);
-    this.todo.push(task);
+    this.todos.push(task);
   }
 
   removeTodo(index) {
@@ -36,8 +37,10 @@ export class Todo {
   }
 }
 
-const defaultProject = new Project("Default");
+const defaultProject = new Project("General");
 projects.push(defaultProject);
+
+defaultProject.addTodo("PlaceHolder ToDo", "08-05-2026", 2);
 
 window.Project = Project;
 window.Todo = Todo;
