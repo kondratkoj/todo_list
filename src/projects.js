@@ -5,7 +5,7 @@ export const projects = [];
 
 export class Project {
   constructor(name) {
-    this.id = crypto.randomUUID();
+    // this.id = crypto.randomUUID();
     this.name = name;
     this.todos = [];
   }
@@ -16,7 +16,7 @@ export class Project {
   }
 
   removeTodo(index) {
-    this.todo.splice(index, 1);
+    this.todos.splice(index, 1);
   }
 }
 
@@ -40,7 +40,7 @@ export class Todo {
 const defaultProject = new Project("General");
 projects.push(defaultProject);
 
-defaultProject.addTodo("PlaceHolder ToDo", "08-05-2026", 2);
+defaultProject.addTodo("PlaceHolder ToDo", "08-05-2026");
 
 window.Project = Project;
 window.Todo = Todo;

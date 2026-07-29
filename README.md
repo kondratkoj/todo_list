@@ -1,8 +1,12 @@
 # todo_list
 TOP Project ToDo List
 
+For this project I accidentally followed MVC design philosophy. My layout for dependencies is :
+
 Index
   - Controller
     - Projects
-    - Local Storage
-    - Render-er
+    - Storage
+    - Display
+
+
