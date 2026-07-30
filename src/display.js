@@ -161,7 +161,7 @@ export function updateDisplay(onDelete, onSelect) {
 
     projectBtn.addEventListener("click", () => {
       onSelect(project);
-      console.log(`you clicked ${project.name}`);
+      // console.log(`you clicked ${project.name}`);
     })
 
     deleteBtn.addEventListener("click", () => {

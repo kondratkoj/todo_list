@@ -57,7 +57,7 @@ function deleteProject(project){
 
 function selectProject(project) {
   activeProject = project;
-  console.log(`${activeProject.name} is active`);
+  // console.log(`${activeProject.name} is active`);
   updateDisplay(deleteProject, selectProject);
   renderCurrentView();
 }

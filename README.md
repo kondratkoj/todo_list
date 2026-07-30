@@ -1,13 +1,36 @@
 # todo_list
 TOP Project ToDo List
 
-For this project I accidentally followed MVC design philosophy. My layout for dependencies is :
+For this project I wound up with a layout very similar to MVC, even though that wasn't the goal. My layout for dependencies is:
 
-Index
-  - Controller
-    - Projects
-    - Storage
-    - Display
+index.js
+  - controller.js
+    - projects.js
+    - storage.js
+    - display.js
 
+The goal was to make dependency only go one direction 
 
-I struggled with callback injection
+That is to say: 
+
+  index.js
+    │
+    ▼
+  controller.js
+    ├──► projects.js
+    ├──► storage.js
+    └──► display.js
+
+I hope that little graph made sense...
+
+controller.js owns the decisions; display.js only draws what it's told and holds no state of its own.
+
+I struggled with callback injection on this one. It got messy in the middle when I tried adding the todo delete and completion-toggle functionality to the All Todos display. Each action was manually deciding what to redraw, and they kept throwing errors. So I refactored everything around a single `renderCurrentView()` function.
+
+The idea: every action changes the data, then calls `renderCurrentView()`. That function reads `activeProject` fresh each time (it holds either a project object or `null`) and picks the right display function — `updateTodos` for a single project, or `displayAllTodos` when nothing is active. No action has to remember what to redraw; it just changes data and hands off.
+
+The callback injections (I'm not sure if this is the correct terminology) then works like this: functions defined in controller.js (`onTodoSubmit`, `selectAllTodos`, `onDeleteTodo`, `onToggleTodo`) get passed into display.js at render time and wired onto the buttons there. So display.js can invoke controller logic without ever importing from controller.js — which is what keeps the dependency arrow pointing one way.
+
+For example: index.js runs `initDisplay(onTodoSubmit, selectAllTodos)`. When the All Todos button (built by display.js) is clicked, it runs `selectAllTodos` (defined in controller.js), which sets `activeProject` to `null` and calls `renderCurrentView()`. That sees no active project and calls `displayAllTodos`, passing in `onDeleteTodo` and `onToggleTodo` — which display.js attaches to each todo's delete button and completed checkbox as it renders them.
+
+I haven't got the storage yet implimented yet, or the todo editing, or most of the styling. That's next.
