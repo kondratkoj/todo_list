@@ -1,0 +1,245 @@
+/* ------------------------------------------------------------------
+   projects.css
+   Styles the project sidebar list and the todo items / dialog.
+   Class names match display.js; colors reuse the tokens in global.css.
+------------------------------------------------------------------ */
+
+/* ---------- Sidebar: All Todos button ---------- */
+
+.allTodoBtn {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  color: white;
+  background: var(--color-head-foot);
+  cursor: pointer;
+}
+
+.allTodoBtn:hover {
+  filter: brightness(0.93);
+}
+
+/* ---------- Sidebar: project list ---------- */
+
+.projectList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.project {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+/* The project name button fills the row so the whole thing is clickable. */
+.projectBtn {
+  flex: 1;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  border: none;
+  background: transparent;
+  font: inherit;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.projectBtn:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* The little "X" delete button on each project. */
+.project .deleteBtn {
+  flex: none;
+  width: 2rem;
+  align-self: stretch;
+  border: none;
+  background: transparent;
+  color: #9aa0aa;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.project .deleteBtn:hover {
+  background: #e2555022;
+  color: #c0392b;
+}
+
+/* ---------- Main panel: todo items ---------- */
+
+.todoList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: 6px;
+}
+
+.complete {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  color: #667085;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.todoName {
+  flex: 1;
+  font-weight: 600;
+}
+
+.dueDate {
+  color: #667085;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+/* The "Remove" button on each todo. Scoped to .todoItem so it does not
+   clash with the project "X" delete button above. */
+.todoItem .deleteBtn {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: white;
+  font: inherit;
+  font-size: 0.85rem;
+  color: #c0392b;
+  cursor: pointer;
+}
+
+.todoItem .deleteBtn:hover {
+  background: #c0392b;
+  color: white;
+  border-color: #c0392b;
+}
+
+/* ---------- Add-Todo dialog ---------- */
+
+.todoDialog {
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+  width: min(90vw, 420px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.todoDialog::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.todoForm {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.5rem;
+}
+
+.todoForm h2 {
+  margin: 0;
+  color: var(--color-primary);
+}
+
+.todoForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.todoForm input,
+.todoForm select {
+  padding: 0.55rem 0.65rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.todoForm input:focus,
+.todoForm select:focus {
+  outline: 2px solid var(--color-head-foot);
+  outline-offset: 1px;
+}
+
+.dialogButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 0.25rem;
+}
+
+.dialogButtons button {
+  padding: 0.55rem 1.1rem;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.submitBtn {
+  border: none;
+  background: var(--color-primary);
+  color: white;
+}
+
+.submitBtn:hover {
+  filter: brightness(1.1);
+}
+
+.cancelBtn {
+  border: 1px solid var(--color-border);
+  background: white;
+  color: var(--color-text);
+}
+
+.cancelBtn:hover {
+  background: #eef0f3;
+}
+
+/* ---------- Priority (colored left border) ---------- */
+
+.todoItem.priority-low {
+  border-left-color: #1b896a;   /* calm green */
+}
+
+.todoItem.priority-medium {
+  border-left-color: #d9a300;   /* amber */
+}
+
+.todoItem.priority-high {
+  border-left-color: #c0392b;   /* red */
+}
+
+/* ---------- Completed (green tint) ---------- */
+
+.todoItem.completed {
+  background: #e4f4ea;
+  border-color: #b6dcc4;
+}
+
+.todoItem.completed .todoName {
+  color: #4a7a5c;
+}

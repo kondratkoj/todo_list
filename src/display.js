@@ -146,6 +146,9 @@ export function displayAllTodos(onDeleteTodo, onToggleTodo) {
         deleteBtn
       );
 
+      div.classList.add(`priority-${todo.priority}`); //These are here to style todo items dynamically
+      if (todo.completed) div.classList.add("completed");
+
       todoList.append(div);
     }
   }
@@ -209,6 +212,9 @@ export function updateTodos(project, onDeleteTodo, onToggleTodo) {
       dueDate,
       deleteBtn
     );
+
+    div.classList.add(`priority-${todo.priority}`); //These are here to style todo items dynamically
+    if (todo.completed) div.classList.add("completed");
 
     todoList.append(div);
   }
