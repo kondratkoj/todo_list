@@ -154,7 +154,7 @@ export function displayAllTodos(onDeleteTodo, onToggleTodo) {
   }
 }
 
-export function updateDisplay(onDelete, onSelect) {
+export function updateDisplay(activeProject, onDelete, onSelect) {
   projectList.replaceChildren();
 
   for (let project of projects) {
@@ -162,6 +162,10 @@ export function updateDisplay(onDelete, onSelect) {
     const projectBtn = makeElement("button", "projectBtn", project.name)
     const deleteBtn = makeElement("button", "deleteBtn button", "X")
 
+    if (project === activeProject) {
+      li.classList.add("active");
+    }
+    
     projectBtn.addEventListener("click", () => {
       onSelect(project);
       // console.log(`you clicked ${project.name}`);

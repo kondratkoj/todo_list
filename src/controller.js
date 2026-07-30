@@ -11,7 +11,7 @@ export function setupController () {
   const newProject = document.querySelector(".newPrjct");
   const newTodo = document.querySelector(".newTodo");
   newProject.addEventListener("click", addProject);
-  updateDisplay(deleteProject, selectProject);
+  updateDisplay(activeProject, deleteProject, selectProject);
   newTodo.addEventListener("click", () => {
     openTodoDialog();
   });
@@ -27,7 +27,7 @@ function addProject() {
   const projectName = prompt("New Project Name");
   const project = new Project(projectName)
   projects.push(project);
-  updateDisplay(deleteProject, selectProject);
+  updateDisplay(activeProject, deleteProject, selectProject);
 }
 
 export function onTodoSubmit(todoData) {
@@ -46,7 +46,7 @@ function deleteProject(project){
     const projectIndex = projects.indexOf(project);
     projects.splice(projectIndex, 1);
 
-    updateDisplay(deleteProject, selectProject)
+    updateDisplay(activeProject, deleteProject, selectProject)
     
     if (wasActiveProject) {
       activeProject = null;
@@ -58,7 +58,7 @@ function deleteProject(project){
 function selectProject(project) {
   activeProject = project;
   // console.log(`${activeProject.name} is active`);
-  updateDisplay(deleteProject, selectProject);
+  updateDisplay(activeProject, deleteProject, selectProject);
   renderCurrentView();
 }
 
@@ -82,4 +82,6 @@ function renderCurrentView() {
   } else {
     displayAllTodos(onDeleteTodo, onToggleTodo);
   }
+  
+  updateDisplay(activeProject, deleteProject, selectProject);
 }

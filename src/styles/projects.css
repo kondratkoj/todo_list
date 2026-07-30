@@ -243,3 +243,15 @@
 .todoItem.completed .todoName {
   color: #4a7a5c;
 }
+
+/* ----------- Active Project ------------ */
+
+.project.active {
+  border-color: var(--color-primary);
+  background: #e4f4ea;
+}
+
+.project.active .projectBtn {
+  color: var(--color-primary);
+  font-weight: 700;
+}
