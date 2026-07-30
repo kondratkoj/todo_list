@@ -9,7 +9,7 @@ let allTodoBtn;
 let todoDialog;
 let todoForm;
 
-export function initDisplay(onTodoSubmit) {
+export function initDisplay(onTodoSubmit, onSelectAllTodos) {
   navBar = document.querySelector(".navBar");
   main = document.querySelector(".main");
 
@@ -22,8 +22,9 @@ export function initDisplay(onTodoSubmit) {
   navBar.append(allTodoBtn, projectList);
   main.append(todoList, todoDialog);
 
-  allTodoBtn.addEventListener("click", displayAllTodos)
-  displayAllTodos();
+  allTodoBtn.addEventListener("click", () => {
+    onSelectAllTodos()
+  });
 }
 
 function createTodoDialog(onTodoSubmit) {
@@ -109,16 +110,42 @@ export function closeTodoDialog() {
   todoDialog.close();
 }
 
-export function displayAllTodos() {
+export function displayAllTodos(onDeleteTodo, onToggleTodo) {
   todoList.replaceChildren();
 
   for (const project of projects) {
     for (const todo of project.todos) {
       const div = makeElement("div", "todoItem");
-      const text = makeElement("span", "", todo.name);
+      const text = makeElement("span", "todoName", todo.name);
       const dueDate = makeElement("div", "dueDate", todo.dueDate);
+      const deleteBtn = makeElement("button", "deleteBtn", "Remove");
 
-      div.append(text, dueDate);
+      const completedLabel = makeElement("label", "complete");
+      const completedBox = makeElement("input", "completed");
+
+      completedBox.type = "checkbox";
+      completedBox.checked = todo.completed;
+
+      completedLabel.append(
+        completedBox,
+        document.createTextNode(" Completed")
+      );
+
+      completedBox.addEventListener("change", () => {
+        onToggleTodo(todo);
+      });
+
+      deleteBtn.addEventListener("click", () => {
+        onDeleteTodo(todo);
+      });
+
+      div.append(
+        completedLabel,
+        text,
+        dueDate,
+        deleteBtn
+      );
+
       todoList.append(div);
     }
   }
@@ -146,15 +173,43 @@ export function updateDisplay(onDelete, onSelect) {
   }
 }
 
-export function updateTodos(project) {
+export function updateTodos(project, onDeleteTodo, onToggleTodo) {
   todoList.replaceChildren();
 
-  for (const todo of project.todos) {
-    const div = makeElement("div", "todoItem",);
-    const text = makeElement("span", "", todo.name);
-    const dueDate = makeElement("div", "dueDate", todo.dueDate)
+  if (!project) return;
 
-    div.append(text, dueDate);
+  for (const todo of project.todos) {
+    const div = makeElement("div", "todoItem");
+    const text = makeElement("span", "todoName", todo.name);
+    const dueDate = makeElement("div", "dueDate", todo.dueDate);
+    const deleteBtn = makeElement("button", "deleteBtn", "Remove");
+
+    const completedLabel = makeElement("label", "complete");
+    const completedBox = makeElement("input", "completed");
+
+    completedBox.type = "checkbox";
+    completedBox.checked = todo.completed;
+
+    completedLabel.append(
+      completedBox,
+      document.createTextNode(" Completed")
+    );
+
+    completedBox.addEventListener("change", () => {
+      onToggleTodo(todo);
+    });
+
+    deleteBtn.addEventListener("click", () => {
+      onDeleteTodo(todo);
+    });
+
+    div.append(
+      completedLabel,
+      text,
+      dueDate,
+      deleteBtn
+    );
+
     todoList.append(div);
   }
 }

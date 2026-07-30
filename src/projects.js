@@ -28,10 +28,6 @@ export class Todo {
     this.completed = false;
   }
 
-  rename(newName){
-    this.name = newName;
-  }
-
   toggleCompleted(){
     this.completed = !this.completed;
   }
@@ -40,7 +36,7 @@ export class Todo {
 const defaultProject = new Project("General");
 projects.push(defaultProject);
 
-defaultProject.addTodo("PlaceHolder ToDo", "08-05-2026");
+
 
 window.Project = Project;
 window.Todo = Todo;

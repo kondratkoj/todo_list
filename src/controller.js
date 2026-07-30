@@ -15,6 +15,12 @@ export function setupController () {
   newTodo.addEventListener("click", () => {
     openTodoDialog();
   });
+  renderCurrentView();
+}
+
+export function selectAllTodos() {
+  activeProject = null;
+  renderCurrentView();
 }
 
 function addProject() {
@@ -31,7 +37,7 @@ export function onTodoSubmit(todoData) {
     alert("No Project Selected")
   };
 
-  updateTodos(activeProject);
+  renderCurrentView();
 }
 
 function deleteProject(project){
@@ -44,13 +50,36 @@ function deleteProject(project){
     
     if (wasActiveProject) {
       activeProject = null;
-      displayAllTodos();
-    } else { updateTodos(activeProject) }
+    }
+  
+    renderCurrentView();
 }
 
 function selectProject(project) {
   activeProject = project;
   console.log(`${activeProject.name} is active`);
   updateDisplay(deleteProject, selectProject);
-  updateTodos(project);
+  renderCurrentView();
+}
+
+export function onDeleteTodo(todo) {
+  const owner = projects.find(project => {
+    return project.todos.includes(todo);
+  });
+  const todoIndex = owner.todos.indexOf(todo);
+  owner.removeTodo(todoIndex);
+  renderCurrentView();
+}
+
+export function onToggleTodo(todo) {
+  todo.toggleCompleted();
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  if (activeProject != null) {
+    updateTodos(activeProject, onDeleteTodo, onToggleTodo);
+  } else {
+    displayAllTodos(onDeleteTodo, onToggleTodo);
+  }
 }

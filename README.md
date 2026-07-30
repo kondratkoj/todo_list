@@ -10,3 +10,4 @@ Index
     - Display
 
 
+I struggled with callback injection

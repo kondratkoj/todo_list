@@ -1,7 +1,7 @@
 import "./styles/reset.css";
 import "./styles/global.css";
 import { makeElement } from "./domHelper.js";
-import { setupController, onTodoSubmit } from "./controller.js";
+import { setupController, onTodoSubmit, selectAllTodos } from "./controller.js";
 import { initDisplay } from "./display.js";
 
 const body = document.querySelector("body");
@@ -18,5 +18,5 @@ body.append(header, main, footer);
 header.append(newPrjct, newTodo);
 main.append(navBar);
 
-initDisplay(onTodoSubmit);
+initDisplay(onTodoSubmit, selectAllTodos);
 setupController();
