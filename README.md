@@ -12,14 +12,13 @@ index.js
 The goal was to make dependency only go one direction 
 
 That is to say: 
-
-  index.js
-    │
-    ▼
-  controller.js
-    ├──► projects.js
-    ├──► storage.js
-    └──► display.js
+```mermaid
+graph TD
+  index[index.js] --> controller[controller.js]
+  controller --> projects[projects.js]
+  controller --> storage[storage.js]
+  controller --> display[display.js]
+```
 
 I hope that little graph made sense...
 
