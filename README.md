@@ -20,8 +20,6 @@ graph TD
   controller --> display[display.js]
 ```
 
-I hope that little graph made sense...
-
 controller.js owns the decisions; display.js only draws what it's told and holds no state of its own.
 
 I struggled with callback injection on this one. It got messy in the middle when I tried adding the todo delete and completion-toggle functionality to the All Todos display. Each action was manually deciding what to redraw, and they kept throwing errors. So I refactored everything around a single `renderCurrentView()` function.
