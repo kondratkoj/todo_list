@@ -101,7 +101,16 @@ function createTodoDialog(onTodoSubmit) {
   });
 }
 
-export function openTodoDialog() {
+export function openTodoDialog(todo) {
+  if(todo) {
+  let name = document.querySelector(".todoNameInput");
+  let date = document.querySelector(".todoDateInput");
+  let priority = document.querySelector(".todoPriorityInput");
+
+  name.value = todo.name;
+  date.value = todo.dueDate;
+  priority.value = todo.priority;
+  }
   todoDialog.showModal();
 }
 
@@ -110,7 +119,7 @@ export function closeTodoDialog() {
   todoDialog.close();
 }
 
-export function displayAllTodos(onDeleteTodo, onToggleTodo) {
+export function displayAllTodos(onDeleteTodo, onToggleTodo, onEditTodo) {
   todoList.replaceChildren();
 
   for (const project of projects) {
@@ -119,12 +128,16 @@ export function displayAllTodos(onDeleteTodo, onToggleTodo) {
       const text = makeElement("span", "todoName", todo.name);
       const dueDate = makeElement("div", "dueDate", todo.dueDate);
       const deleteBtn = makeElement("button", "deleteBtn", "Remove");
+      const editBtn = makeElement("button", "editBtn", "Edit");
 
       const completedLabel = makeElement("label", "complete");
       const completedBox = makeElement("input", "completed");
 
       completedBox.type = "checkbox";
       completedBox.checked = todo.completed;
+
+      const projectName = document.createElement("span");
+      projectName.textContent = project.name;
 
       completedLabel.append(
         completedBox,
@@ -139,11 +152,17 @@ export function displayAllTodos(onDeleteTodo, onToggleTodo) {
         onDeleteTodo(todo);
       });
 
+      editBtn.addEventListener("click", () => {
+        onEditTodo(todo);
+      })
+
       div.append(
         completedLabel,
+        projectName,
         text,
         dueDate,
-        deleteBtn
+        deleteBtn,
+        editBtn
       );
 
       div.classList.add(`priority-${todo.priority}`); //These are here to style todo items dynamically
@@ -165,7 +184,7 @@ export function updateDisplay(activeProject, onDelete, onSelect) {
     if (project === activeProject) {
       li.classList.add("active");
     }
-    
+
     projectBtn.addEventListener("click", () => {
       onSelect(project);
       // console.log(`you clicked ${project.name}`);
@@ -180,7 +199,7 @@ export function updateDisplay(activeProject, onDelete, onSelect) {
   }
 }
 
-export function updateTodos(project, onDeleteTodo, onToggleTodo) {
+export function updateTodos(project, onDeleteTodo, onToggleTodo, onEditTodo) {
   todoList.replaceChildren();
 
   if (!project) return;
@@ -190,6 +209,7 @@ export function updateTodos(project, onDeleteTodo, onToggleTodo) {
     const text = makeElement("span", "todoName", todo.name);
     const dueDate = makeElement("div", "dueDate", todo.dueDate);
     const deleteBtn = makeElement("button", "deleteBtn", "Remove");
+    const editBtn = makeElement("button", "editBtn", "Edit");
 
     const completedLabel = makeElement("label", "complete");
     const completedBox = makeElement("input", "completed");
@@ -210,11 +230,16 @@ export function updateTodos(project, onDeleteTodo, onToggleTodo) {
       onDeleteTodo(todo);
     });
 
+    editBtn.addEventListener("click", () => {
+      onEditTodo(todo);
+    })
+
     div.append(
       completedLabel,
       text,
       dueDate,
-      deleteBtn
+      deleteBtn,
+      editBtn
     );
 
     div.classList.add(`priority-${todo.priority}`); //These are here to style todo items dynamically

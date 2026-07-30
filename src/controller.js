@@ -6,6 +6,7 @@ import {
   openTodoDialog } from "./display.js";
 
 let activeProject;
+let editingTodo;
 
 export function setupController () {
   const newProject = document.querySelector(".newPrjct");
@@ -31,12 +32,16 @@ function addProject() {
 }
 
 export function onTodoSubmit(todoData) {
-  if (activeProject != null) {
+  if (editingTodo) {
+    editingTodo.name = todoData.name;
+    editingTodo.dueDate = todoData.dueDate;
+    editingTodo.priority = todoData.priority;
+  } else if (activeProject != null) {
     activeProject.addTodo(todoData.name, todoData.dueDate, todoData.priority);
   } else {
     alert("No Project Selected")
   };
-
+  editingTodo = null;
   renderCurrentView();
 }
 
@@ -76,12 +81,17 @@ export function onToggleTodo(todo) {
   renderCurrentView();
 }
 
+function editTodo(todo) {
+  editingTodo = todo;
+  openTodoDialog(todo);
+}
+
 function renderCurrentView() {
   if (activeProject != null) {
-    updateTodos(activeProject, onDeleteTodo, onToggleTodo);
+    updateTodos(activeProject, onDeleteTodo, onToggleTodo, editTodo);
   } else {
-    displayAllTodos(onDeleteTodo, onToggleTodo);
+    displayAllTodos(onDeleteTodo, onToggleTodo, editTodo);
   }
-  
+
   updateDisplay(activeProject, deleteProject, selectProject);
 }

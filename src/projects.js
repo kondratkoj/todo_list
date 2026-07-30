@@ -35,7 +35,7 @@ export class Todo {
 
 const defaultProject = new Project("General");
 projects.push(defaultProject);
-defaultProject.addTodo("Example", "09-11-2026", "medium");
+defaultProject.addTodo("Example", "2026-07-18", "medium");
 
 
 
