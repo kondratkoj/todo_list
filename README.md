@@ -1,5 +1,13 @@
 # todo_list
-TOP Project ToDo List
+A Browser based todo list built as part of The Odin Project
+
+Features:
+  Create and select projects
+  Add todos to a project (title, and whatever other fields you support)
+  Mark a todo complete / incomplete
+  Delete a todo
+  View all todos across every project ("All Todos")
+  Persistence through localStorage
 
 For this project I wound up with a layout very similar to MVC, even though that wasn't the goal. My layout for dependencies is:
 
@@ -30,3 +38,4 @@ The callback injections (I'm not sure if this is the correct terminology) then w
 
 For example: index.js runs `initDisplay(onTodoSubmit, selectAllTodos)`. When the All Todos button (built by display.js) is clicked, it runs `selectAllTodos` (defined in controller.js), which sets `activeProject` to `null` and calls `renderCurrentView()`. That sees no active project and calls `displayAllTodos`, passing in `onDeleteTodo` and `onToggleTodo` — which display.js attaches to each todo's delete button and completed checkbox as it renders them.
 
+Overall this project took me about six days of fumbling confusion, punctuated by short bouts of understanding where and how to implement the next feature. I spent more time chasing bugs and figuring out errors than I did writing code. It was an incredible learning project and I'm very proud of how it turned out.
