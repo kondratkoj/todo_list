@@ -72,7 +72,7 @@ export function onTodoSubmit(todoData) {
     alert("No Project Selected")
   };
   editingTodo = null;
-  saveProjects();
+  saveProjects(projects);
   renderCurrentView();
 }
 
