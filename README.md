@@ -30,4 +30,3 @@ The callback injections (I'm not sure if this is the correct terminology) then w
 
 For example: index.js runs `initDisplay(onTodoSubmit, selectAllTodos)`. When the All Todos button (built by display.js) is clicked, it runs `selectAllTodos` (defined in controller.js), which sets `activeProject` to `null` and calls `renderCurrentView()`. That sees no active project and calls `displayAllTodos`, passing in `onDeleteTodo` and `onToggleTodo` — which display.js attaches to each todo's delete button and completed checkbox as it renders them.
 
-I haven't got the storage yet implimented yet, or the todo editing, or most of the styling. That's next.

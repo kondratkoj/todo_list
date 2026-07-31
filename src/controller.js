@@ -4,6 +4,7 @@ import {
   updateTodos, 
   displayAllTodos, 
   openTodoDialog } from "./display.js";
+import { saveProjects, loadProjects } from "./storage.js";
 
 let activeProject;
 let editingTodo;
@@ -12,11 +13,39 @@ export function setupController () {
   const newProject = document.querySelector(".newPrjct");
   const newTodo = document.querySelector(".newTodo");
   newProject.addEventListener("click", addProject);
-  updateDisplay(activeProject, deleteProject, selectProject);
   newTodo.addEventListener("click", () => {
     openTodoDialog();
   });
+  populateProjects();
   renderCurrentView();
+}
+
+function populateProjects() {
+  let loadedProjects = loadProjects();
+
+  if (loadedProjects.length === 0) {
+    const project = new Project("General");
+    project.addTodo("Example", "2026-07-18", "medium");
+
+    projects.push(project);
+  }
+
+  for (const loadedProject of loadedProjects) {
+    const project = new Project(loadedProject.name);
+
+    for (const loadedTodo of loadedProject.todos) {
+      const todo = new Todo(
+        loadedTodo.name,
+        loadedTodo.dueDate,
+        loadedTodo.priority
+      );
+
+      todo.completed = loadedTodo.completed;
+      project.todos.push(todo);
+    }
+
+    projects.push(project);
+  }
 }
 
 export function selectAllTodos() {
@@ -28,6 +57,7 @@ function addProject() {
   const projectName = prompt("New Project Name");
   const project = new Project(projectName)
   projects.push(project);
+  saveProjects(projects);
   updateDisplay(activeProject, deleteProject, selectProject);
 }
 
@@ -42,6 +72,7 @@ export function onTodoSubmit(todoData) {
     alert("No Project Selected")
   };
   editingTodo = null;
+  saveProjects();
   renderCurrentView();
 }
 
@@ -51,12 +82,12 @@ function deleteProject(project){
     const projectIndex = projects.indexOf(project);
     projects.splice(projectIndex, 1);
 
-    updateDisplay(activeProject, deleteProject, selectProject)
-    
     if (wasActiveProject) {
       activeProject = null;
     }
   
+    saveProjects(projects);
+    
     renderCurrentView();
 }
 
@@ -73,11 +104,13 @@ export function onDeleteTodo(todo) {
   });
   const todoIndex = owner.todos.indexOf(todo);
   owner.removeTodo(todoIndex);
+  saveProjects(projects);
   renderCurrentView();
 }
 
 export function onToggleTodo(todo) {
   todo.toggleCompleted();
+  saveProjects(projects);
   renderCurrentView();
 }
 

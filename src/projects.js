@@ -1,7 +1,7 @@
 import { makeElement } from "./domHelper.js";
 import "./styles/projects.css"
 
-export const projects = [];
+export let projects = [];
 
 export class Project {
   constructor(name) {
@@ -32,12 +32,6 @@ export class Todo {
     this.completed = !this.completed;
   }
 }
-
-const defaultProject = new Project("General");
-projects.push(defaultProject);
-defaultProject.addTodo("Example", "2026-07-18", "medium");
-
-
 
 window.Project = Project;
 window.Todo = Todo;
